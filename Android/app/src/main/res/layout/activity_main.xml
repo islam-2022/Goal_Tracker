@@ -1,18 +1,99 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<!--Relative layout so buttons can be next to text-->
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".MainActivity"
+    android:background="@color/back">
 
+    <!--Formats title of page-->
     <TextView
+        android:id="@+id/textView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:padding="10dp"
+        android:text="To Do List"
+        android:textColor="@color/text1"
+        android:textSize="26dp" />
+
+    <!--Google sign in button -->
+    <com.google.android.gms.common.SignInButton
+        android:id="@+id/sign_in_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <!--Allows user to type list items as input-->
+    <EditText
+        android:layout_below="@id/textView"
+        android:id="@+id/editText"
+        android:padding="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/text1"
+        android:hint="Add an Item"
+        android:textColorHint="@color/text1"/>
+
+    <!--Places components inside layout-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/LinearLayout1"
+        android:orientation="horizontal"
+        android:layout_below="@id/editText"
+        android:padding="10dp">
+
+
+
+        <!--Three buttons for add/delete/clear items-->
+        <Button
+            android:id="@+id/add"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Add"/>
+        <Button
+            android:id="@+id/delete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Delete"
+            android:layout_marginLeft="70dp"/>
+        <Button
+            android:id="@+id/clear"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Clear"
+            android:layout_marginLeft="60dp"/>
+
+    </LinearLayout>
+
+    <!--Formats title of list-->
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:padding="10dp"
+        android:layout_below="@id/LinearLayout1"
+        android:text="To Do Today"
+        android:textColor="@color/text1"
+        android:textSize="20dp" />
+
+    <!--Format list items-->
+    <ListView
+        android:id="@+id/listView"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_below="@id/textView1"
+        android:choiceMode="multipleChoice"/>
+    <!-- <android.support.v7.widget.RecyclerView
+         android:id="@+id/my_recycler_view"
+         android:scrollbars="vertical"
+         android:layout_width="wrap_content"
+         android:layout_height="match_parent"
+         android:layout_below="@id/textView1"
+         android:choiceMode="multipleChoice"/> -->
+</RelativeLayout>
