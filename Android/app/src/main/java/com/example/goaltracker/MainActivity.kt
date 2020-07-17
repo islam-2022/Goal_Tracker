@@ -2,26 +2,51 @@ package com.example.goaltracker
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.MenuItem
+import android.widget.Toast
+import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.fragment.app.Fragment
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
+	lateinit var toggle: ActionBarDrawerToggle
+
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
 		setContentView(R.layout.activity_main)
 
-		val goalsFrag=GoalsFragment()
-		val settingsFrag=SettingsFragment()
-		val eviFrag= EvidenceFragment()
+		val goalsFragment=GoalsFragment()
+		val settingsFragment=SettingsFragment()
+		val evidenceFragment= EvidenceFragment()
 
-		setCurrentFragment(goalsFrag)
+		setCurrentFragment(goalsFragment)
 
 		bottomNavigationView.setOnNavigationItemSelectedListener {
 			when(it.itemId){
-				R.id.goals->setCurrentFragment(goalsFrag)
-				R.id.evidence->setCurrentFragment(eviFrag)
-				R.id.settings->setCurrentFragment(settingsFrag)
+				R.id.goals->setCurrentFragment(goalsFragment)
+				R.id.evidence->setCurrentFragment(evidenceFragment)
+				R.id.settings->setCurrentFragment(settingsFragment)
+			}
+			true
+		}
+
+		toggle=ActionBarDrawerToggle(this,drawerLayout, R.string.open, R.string.close)
+		drawerLayout.addDrawerListener(toggle)
+		toggle.syncState()
+
+		supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
+		navView.setNavigationItemSelectedListener {
+			when(it.itemId){
+				R.id.mItem1 -> Toast.makeText(applicationContext,"item1 clicked",
+					Toast.LENGTH_SHORT).show()
+
+				R.id.mItem2 -> Toast.makeText(applicationContext,"item2 clicked",
+					Toast.LENGTH_SHORT).show()
+
+				R.id.mItem3 -> Toast.makeText(applicationContext,"item3 clicked",
+					Toast.LENGTH_SHORT).show()
 			}
 			true
 		}
@@ -33,6 +58,13 @@ class MainActivity : AppCompatActivity() {
 			replace(R.id.flFragment,fragment)
 			commit()
 		}
+	}
+
+	override fun onOptionsItemSelected(item: MenuItem): Boolean {
+		if(toggle.onOptionsItemSelected(item)){
+			return true
+		}
+		return super.onOptionsItemSelected(item)
 	}
 
 }
