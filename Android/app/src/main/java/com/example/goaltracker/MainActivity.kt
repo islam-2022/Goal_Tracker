@@ -1,11 +1,8 @@
 package com.example.goaltracker
 
-import EviFrag
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.fragment.app.Fragment
-import com.example.goaltracker.GoalsFrag
-import com.example.goaltracker.SettingsFrag
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -14,9 +11,9 @@ class MainActivity : AppCompatActivity() {
 		super.onCreate(savedInstanceState)
 		setContentView(R.layout.activity_main)
 
-		val goalsFrag=GoalsFrag()
-		val settingsFrag=SettingsFrag()
-		val eviFrag=EviFrag()
+		val goalsFrag=GoalsFragment()
+		val settingsFrag=SettingsFragment()
+		val eviFrag= EvidenceFragment()
 
 		setCurrentFragment(goalsFrag)
 

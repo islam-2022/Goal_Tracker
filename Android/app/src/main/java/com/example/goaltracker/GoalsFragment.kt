@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 
-class GoalsFrag: Fragment(R.layout.fragment_goals) {
+class GoalsFragment: Fragment(R.layout.fragment_goals) {
 
 
 }

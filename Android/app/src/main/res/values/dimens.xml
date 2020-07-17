@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<dimen name="fragmentLayout_Height">660dp</dimen>
+	<dimen name="bottomNavView_Height">70dp</dimen>
+</resources>
