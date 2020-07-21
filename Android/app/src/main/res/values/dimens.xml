@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-	<dimen name="fragmentLayout_Height">660dp</dimen>
-	<dimen name="bottomNavView_Height">70dp</dimen>
+	<dimen name="fragmentLayout_height">660dp</dimen>
+	<dimen name="bottomNavView_height">70dp</dimen>
+	<dimen name="navHeader_height">0dp</dimen>
 </resources>

@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_margin="8dp">
+    android:layout_height="wrap_content">
 
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:layout_margin="10dp">
 
 
         <LinearLayout
@@ -17,6 +17,7 @@
             android:orientation="horizontal"
             >
             <Button
+                android:id="@+id/cancel_goal_button"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -35,12 +36,20 @@
                 android:textAppearance="@android:style/TextAppearance.DeviceDefault.Medium"/>
 
                 <Button
+                    android:id="@+id/save_goal_button"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="Save"
                     />
         </LinearLayout>
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:hint="Goal's name"/>
+
 
 
 
@@ -49,4 +58,4 @@
     </LinearLayout>
 
 
-</androidx.cardview.widget.CardView>
+</RelativeLayout>
