@@ -46,7 +46,7 @@ class EvidenceAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
             author.setText(evidence.author.name)
             tagged_user.setText(evidence.taggedPerson.name)
             context.setText(evidence.context)
-            time.setText(evidence.time)
+            time.setText(evidence.timeStamp)
 
             Glide
                 .with(context)

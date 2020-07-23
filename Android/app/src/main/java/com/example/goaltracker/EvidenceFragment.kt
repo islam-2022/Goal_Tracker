@@ -33,16 +33,16 @@ class EvidenceFragment:Fragment(R.layout.fragment_evidence) {
         var user1 = User("user1","1")
         var user2 = User("user2","2")
         val list = ArrayList<Evidence>()
-        list.add(Evidence(user1,user2,"evidence1","5h",""))
-        list.add(Evidence(user2,user1,"evidence2","6h",""))
+        list.add(Evidence(user1,user2,"evidence1","5h","",false))
+        list.add(Evidence(user2,user1,"evidence2","6h","",false))
 
         evidenceAdapter.sumbitList(list)
 
-//        val addEvidenceButton = rootView.findViewById<FloatingActionButton>(R.id.add_evidence_button);
-//        addEvidenceButton.setOnClickListener{
-//            val dialog = CreateEvidenceDialog()
-//            dialog.show(requireFragmentManager(),"createEvidence")
-//        }
+        val addEvidenceButton = rootView.findViewById<FloatingActionButton>(R.id.add_evidence_button);
+        addEvidenceButton.setOnClickListener{
+            val dialog = CreateEvidenceDialog()
+            dialog.show(requireFragmentManager(),"createEvidence")
+        }
 
 
 
