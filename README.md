@@ -15,7 +15,7 @@
     - 🍴 Fork this repo!
 
 - **Option 2**
-    - 👯 Clone this repo to your local machine using `https://github.com/joanaz/HireDot2.git`
+    - 👯 Clone this repo to your local machine using `https://github.com/islam-yousry/Goal_Tracker.git`
 
 ### Step 2
 
@@ -23,7 +23,7 @@
 
 ### Step 3
 
-- 🔃 Create a new pull request using <a href="https://github.com/joanaz/HireDot2/compare/" target="_blank">`https://github.com/joanaz/HireDot2/compare/`</a>.
+- 🔃 Create a new pull request using <a href="https://github.com/islam-yousry/Goal_Tracker/compare/" target="_blank">`https://github.com/islam-yousry/Goal_Tracker/compare/`</a>.
 
 ---
 
@@ -31,9 +31,7 @@
 
 > Or Contributors/People
 
-| <a href="https://github.com/klanti117" target="_blank">**Klanti Islam**</a> | <a href="https://github.com/islam-yousry" target="_blank">**Islam Yousry**</a> | <a href="http://fvcproductions.com" target="_blank">**Daniel Chatman**</a> |
-| :---: |:---:| :---:|
-| [![FVCproductions](https://avatars2.githubusercontent.com/u/12371398?s=400&u=1d05a7025939853b39f60cfa478e99d4ae19a02e&v=4&s=200)](http://fvcproductions.com)    | [![FVCproductions](https://avatars0.githubusercontent.com/u/44685941?s=400&u=ce4d7ea476406a239a41cc44b9c1852aaf3af389&v=4&s=200)](http://fvcproductions.com) | [![FVCproductions](https://avatars1.githubusercontent.com/u/4284691?v=3&s=200)](http://fvcproductions.com)  |
+<a href="https://github.com/klanti117" target="_blank">**Klanti Islam**</a> | <a href="https://github.com/islam-yousry" target="_blank">**Islam Yousry**</a> | <a href="https://github.com/Daniel-Chatman" target="_blank">**Daniel Chatman**</a> 
 
 - This project is being mentored by <a href="https://www.linkedin.com/in/pete-bekos-a1818a94/" target="_blank">**Pete Bekos**</a> 
 ---
@@ -41,4 +39,4 @@
 ## FAQ
 
 <!-- - **How do I do *specifically* so and so?** -->
-    <!-- - No problem! Just do this. -->
+   
