@@ -5,14 +5,41 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="open">Open</string>
     <string name="close">Close</string>
+    <string name="one">1</string>
+    <string name="occurrences">occurrences</string>
+    <string name="after">After</string>
+    <string name="on">On</string>
+    <string name="never">Never</string>
+    <string name="ends">Ends</string>
+    <string name="repeat_on">Repeat On</string>
+    <string name="repeat_every">Repeat every</string>
+    <string name="s">S</string>
+    <string name="m">M</string>
+    <string name="t">T</string>
+    <string name="f">F</string>
+    <string name="dd_mm_yyyy">DD-MM-YYYY</string>
+    <string name="finish">Finish</string>
+    <string name="enter_the_text">Enter the text</string>
+    <string name="select_the_goal_related_to_this_evidence">select the goal related to this evidence</string>
+    <string name="create_an_evidence">Create an Evidence</string>
+    <string name="cancel">Cancel</string>
+    <string name="create_a_habit">Create a Habit</string>
+    <string name="save">Save</string>
+    <string name="habit_s_name">Habit\'s name</string>
+    <string name="habit_s_description">Habit\'s description</string>
+    <string name="select_the_goal_of_this_habit">Select the goal of this habit</string>
+    <string name="select_the_priority_of_the_habit">select the priority of the habit</string>
+    <string name="set_the_time_period_for_the_habit">Set the time period for the habit</string>
+    <string name="w">W</string>
+    <string name="set_time_error_message">select the time period for the habit !</string>
     <string-array name="goals_array">
         <item>Health</item>
         <item>Finance</item>
     </string-array>
     <string-array name="habits_array">
-        <item>HIGH</item>
-        <item>NORMAL</item>
         <item>LOW</item>
+        <item>NORMAL</item>
+        <item>HIGH</item>
     </string-array>
     <string-array name="time_period">
         <item>day</item>

@@ -1,5 +1,7 @@
 package com.example.goaltracker
 
+import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -14,7 +16,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 class EvidenceFragment:Fragment(R.layout.fragment_evidence) {
 
     private lateinit var evidenceAdapter: EvidenceAdapter
-
+    private val CREATE_EVIDENCE_DIALOG: Int = 0
     override fun onCreateView(
                             inflater: LayoutInflater,
                             container: ViewGroup?,
@@ -41,11 +43,22 @@ class EvidenceFragment:Fragment(R.layout.fragment_evidence) {
         val addEvidenceButton = rootView.findViewById<FloatingActionButton>(R.id.add_evidence_button);
         addEvidenceButton.setOnClickListener{
             val dialog = CreateEvidenceDialog()
+            dialog.setTargetFragment(this, CREATE_EVIDENCE_DIALOG);
             dialog.show(requireFragmentManager(),"createEvidence")
         }
 
 
 
         return rootView
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        if (requestCode == CREATE_EVIDENCE_DIALOG){
+            if(resultCode == Activity.RESULT_OK){
+                val bundle: Bundle? = data!!.extras
+
+
+            }
+        }
     }
 }

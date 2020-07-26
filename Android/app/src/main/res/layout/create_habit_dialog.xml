@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:padding="18dp">
 
 
     <LinearLayout
@@ -17,48 +18,48 @@
             >
             <Button
                 android:id="@+id/cancel_create_habit_button"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Cancel"
+                android:text="@string/cancel"
                 />
 
             <TextView
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Create a Habit"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
+                android:text="@string/create_a_habit"
                 android:gravity="center_horizontal"
                 android:textStyle="bold"
-                android:textAppearance="@android:style/TextAppearance.DeviceDefault.Medium"/>
+                android:textAppearance="@android:style/TextAppearance.DeviceDefault.Small"/>
 
                 <Button
                     android:id="@+id/save_create_habit_button"
-                    android:layout_width="0dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Save"
+                    android:text="@string/save"
                     />
         </LinearLayout>
 
         <EditText
+            android:id="@+id/habit_name_edit_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
-            android:hint="Habit's name"/>
+            android:hint="@string/habit_s_name"/>
 
         <EditText
+            android:id="@+id/habit_description_edit_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
-            android:hint="Habit's description"/>
+            android:hint="@string/habit_s_description"/>
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Select the goal of this habit"
+            android:text="@string/select_the_goal_of_this_habit"
             android:textAppearance="@android:style/TextAppearance.DeviceDefault.Widget.ActionBar.Subtitle"
             android:layout_marginStart="10dp"
             android:layout_marginTop="10dp"/>
@@ -68,12 +69,11 @@
             android:layout_height="wrap_content"
             android:layout_margin="10dp"/>
 
-        <!-- todo set time selection for the goal-->
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="select the priority of the habit"
+            android:text="@string/select_the_priority_of_the_habit"
             android:textAppearance="@android:style/TextAppearance.DeviceDefault.Widget.ActionBar.Subtitle"
             android:layout_marginStart="10dp"
             android:layout_marginTop="10dp"/>
@@ -82,9 +82,28 @@
             android:id="@+id/priority_spinner"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"/>
+            android:layout_margin="10dp"
+            />
 
-        <!--todo set time selection for the habit-->
+        <Button
+            android:id="@+id/set_habit_time_period_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/set_the_time_period_for_the_habit"
+            android:layout_gravity="center"
+            android:layout_marginStart="18dp"
+            android:layout_marginEnd="18dp"/>
+        <TextView
+            android:id="@+id/set_time_period_error_text_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/set_time_error_message"
+            android:textAppearance="@android:style/TextAppearance.Medium"
+            android:textColor="@android:color/holo_red_dark"
+            android:gravity="center"
+            android:layout_margin="18dp"
+            android:visibility="invisible"
+            />
 
 
 

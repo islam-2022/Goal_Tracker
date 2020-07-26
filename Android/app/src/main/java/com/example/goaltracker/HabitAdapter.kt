@@ -9,7 +9,7 @@ import com.example.goaltracker.Model.Habit
 
 class HabitAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    private var habitList: List<Habit> = ArrayList()
+    private var habitList = ArrayList<Habit>()
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return HabitViewHolder(
             LayoutInflater.from(parent.context).inflate(R.layout.habit_item,parent,false)
@@ -29,9 +29,8 @@ class HabitAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     }
 
     fun sumbitList(list: List<Habit>){
-        habitList = list
+        habitList = list as ArrayList<Habit>
     }
-
 
 
     class HabitViewHolder (itemView: View): RecyclerView.ViewHolder(itemView){

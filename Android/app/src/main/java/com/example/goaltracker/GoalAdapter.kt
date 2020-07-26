@@ -11,7 +11,7 @@ import kotlinx.android.synthetic.main.goal_item.view.*
 
 class GoalAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    private var goalsList: List<Goal> = ArrayList()
+    private var goalsList = ArrayList<Goal>()
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
@@ -33,8 +33,9 @@ class GoalAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     }
 
     fun sumbitList(list: List<Goal>){
-        goalsList = list
+        goalsList = list as ArrayList<Goal>
     }
+
 
     class GoalViewHolder (itemview: View) : RecyclerView.ViewHolder(itemview) {
         private val goalTitle: TextView = itemview.goal_name_text_view
