@@ -79,19 +79,19 @@ class GoalsFragment: Fragment(R.layout.fragment_goals) {
         if (requestCode == GREATE_HABIT_DIALOG){
             if(resultCode == Activity.RESULT_OK){
                 val bundle: Bundle? = data!!.extras
-                var habitTimePeriod = HabitTimePeriod(
+                val habitTimePeriod = HabitTimePeriod(
                     bundle!!.getInt("habitFrequencyNumber"),
-                    bundle!!.getBoolean("isFrequencyPerWeek"),
-                    bundle!!.get("daysSelected") as ArrayList<Days>,
-                    bundle!!.getString("selectedRadioButton"),
-                    bundle!!.getString("habitEndingAt"),
-                    bundle!!.getInt("habitEndingAfter")
+                    bundle.getBoolean("isFrequencyPerWeek"),
+                    bundle.get("daysSelected") as ArrayList<String>,
+                    bundle.getString("selectedRadioButton"),
+                    bundle.getString("habitEndingAt"),
+                    bundle.getInt("habitEndingAfter")
                 )
                 var habit = Habit(
-                    bundle!!.getString("habitName"),
-                    bundle!!.getString("habitDescription"),
+                    bundle.getString("habitName"),
+                    bundle.getString("habitDescription"),
                     0,
-                    bundle!!.get("priority"),
+                    bundle.get("priority"),
                     habitTimePeriod
                 )
                 // todo view model. goal .add habit.

@@ -53,9 +53,7 @@ class EvidenceAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
                 .load(evidence.image)
                 .centerCrop()
                 .into(image)
-
         }
-
     }
 
 }

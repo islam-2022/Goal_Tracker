@@ -1,9 +1,10 @@
 package com.example.goaltracker.ViewModel
 
+import androidx.lifecycle.LiveData
 import com.example.goaltracker.Model.Goal
 
 class GoalViewModel {
-    private lateinit var goalList: List<Goal>
+    private lateinit var goalList: LiveData<List<Goal>>
 
     // constructor to initialize the list from the backend
 

@@ -38,6 +38,7 @@ class EvidenceFragment:Fragment(R.layout.fragment_evidence) {
         list.add(Evidence(user1,user2,"evidence1","5h","",false))
         list.add(Evidence(user2,user1,"evidence2","6h","",false))
 
+
         evidenceAdapter.sumbitList(list)
 
         val addEvidenceButton = rootView.findViewById<FloatingActionButton>(R.id.add_evidence_button);
@@ -61,4 +62,5 @@ class EvidenceFragment:Fragment(R.layout.fragment_evidence) {
             }
         }
     }
+
 }

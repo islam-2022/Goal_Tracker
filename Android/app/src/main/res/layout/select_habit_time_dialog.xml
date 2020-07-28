@@ -33,6 +33,7 @@
             android:layout_width="30dp"
             android:layout_height="match_parent"
             android:text="@string/one"
+            android:maxLength="3"
             android:inputType="numberDecimal"
             android:layout_marginEnd="18dp"/>
 
@@ -223,6 +224,7 @@
                 android:layout_height="wrap_content"
                 android:inputType="datetime"
                 android:hint="@string/dd_mm_yyyy"
+                android:maxLength="8"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
@@ -235,6 +237,7 @@
                 android:layout_width="30dp"
                 android:layout_height="match_parent"
                 android:text="@string/one"
+                android:maxLength="3"
                 android:inputType="numberDecimal"
                 android:layout_marginStart="10dp"
                 app:layout_constraintLeft_toRightOf="@+id/habit_time_ending_radio_group"

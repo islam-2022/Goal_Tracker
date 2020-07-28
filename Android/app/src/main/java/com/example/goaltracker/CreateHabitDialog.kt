@@ -18,7 +18,7 @@ class CreateHabitDialog : DialogFragment() {
     private lateinit var habitName: EditText
     private lateinit var habitDescription: EditText
     private lateinit var setTimePeriodErrorMessage: TextView
-    private lateinit var habitTimePeriodBundle: Bundle
+    private var habitTimePeriodBundle: Bundle =  Bundle.EMPTY
 
     override fun onCreateView(
                                 inflater: LayoutInflater,
@@ -40,7 +40,7 @@ class CreateHabitDialog : DialogFragment() {
                 intent.putExtra("habitName",habitName.text.toString())
                 intent.putExtra("habitDescription",habitDescription.text.toString())
                 intent.putExtra("priority",prioritySpinner.selectedItem.toString() as Priority)
-                intent.putExtras(habitTimePeriodBundle)
+                intent.putExtras(habitTimePeriodBundle!!)
                 targetFragment!!.onActivityResult(targetRequestCode, Activity.RESULT_OK,intent)
                 dismiss()
             }
@@ -82,6 +82,7 @@ class CreateHabitDialog : DialogFragment() {
         val setHabitTimePeriod = rootView.findViewById<Button>(R.id.set_habit_time_period_button)
         setHabitTimePeriod.setOnClickListener{
             val dialog = SelectHabitTime()
+            dialog.arguments = this.habitTimePeriodBundle
             dialog.setTargetFragment(this, SET_HABIT_TIME_PERIOD_DIALOG);
             dialog.show(requireFragmentManager(),"select time period")
         }
