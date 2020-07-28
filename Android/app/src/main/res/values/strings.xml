@@ -20,7 +20,7 @@
     <string name="dd_mm_yyyy">DD-MM-YYYY</string>
     <string name="finish">Finish</string>
     <string name="enter_the_text">Enter the text</string>
-    <string name="select_the_goal_related_to_this_evidence">select the goal related to this evidence</string>
+    <string name="select_the_habit_related_to_this_evidence">select the habit related to this evidence</string>
     <string name="create_an_evidence">Create an Evidence</string>
     <string name="cancel">Cancel</string>
     <string name="create_a_habit">Create a Habit</string>
@@ -32,6 +32,7 @@
     <string name="set_the_time_period_for_the_habit">Set the time period for the habit</string>
     <string name="w">W</string>
     <string name="set_time_error_message">select the time period for the habit !</string>
+    <string name="select_a_mentor_for_the_habit">Select a mentor for the habit</string>
     <string-array name="goals_array">
         <item>Health</item>
         <item>Finance</item>

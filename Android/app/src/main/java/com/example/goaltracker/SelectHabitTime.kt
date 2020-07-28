@@ -119,21 +119,21 @@ class SelectHabitTime: DialogFragment() {
                 intent.putExtra("FrequencyPerItemPosition",habitFrequencySpinner.selectedItemPosition)
                 intent.putExtra("isFrequencyPerWeek",selectedHabitTimeFrequency == "week")
                 if(selectedHabitTimeFrequency == "week") {
-                    val daysSelected = ArrayList<String>()
+                    val daysSelected = ArrayList<Days>()
                     if(sundayCheckBox.isChecked)
-                        daysSelected.add(Days.Sunday.toString())
+                        daysSelected.add(Days.Sunday)
                     if(mondayCheckBox.isChecked)
-                        daysSelected.add(Days.Monday.toString())
+                        daysSelected.add(Days.Monday)
                     if(tuesdayCheckBox.isChecked)
-                        daysSelected.add(Days.Tuesday.toString())
+                        daysSelected.add(Days.Tuesday)
                     if(wednesdayCheckBox.isChecked)
-                        daysSelected.add(Days.Wednesday.toString())
+                        daysSelected.add(Days.Wednesday)
                     if(thursdayCheckBox.isChecked)
-                        daysSelected.add(Days.Thursday.toString())
+                        daysSelected.add(Days.Thursday)
                     if(fridayCheckBox.isChecked)
-                        daysSelected.add(Days.Friday.toString())
+                        daysSelected.add(Days.Friday)
                     if(saturdayCheckBox.isChecked)
-                        daysSelected.add(Days.Saturday.toString())
+                        daysSelected.add(Days.Saturday)
                     intent.putExtra("daysSelected",daysSelected)
                 }
                 intent.putExtra("selectedRadioButton",selectedRadioButton.text.toString())
@@ -179,10 +179,9 @@ class SelectHabitTime: DialogFragment() {
         habitFrequencySpinner.setSelection(bundle.getInt("FrequencyPerItemPosition"))
         if(bundle.getBoolean("isFrequencyPerWeek")){
             daysVisibility(true)
-            val days: ArrayList<String> = bundle.get("daysSelected") as ArrayList<String>
-            println(days)
+            val days: ArrayList<Days> = bundle.get("daysSelected") as ArrayList<Days>
             for(day in days){
-                when(day) {
+                when(day.toString()) {
                     Days.Sunday.toString() -> sundayCheckBox.isChecked = true
                     Days.Monday.toString() -> mondayCheckBox.isChecked = true
                     Days.Tuesday.toString() -> tuesdayCheckBox.isChecked = true
@@ -244,7 +243,7 @@ class SelectHabitTime: DialogFragment() {
         super.onResume()
         val params: ViewGroup.LayoutParams = dialog!!.window!!.attributes
         params.width = WindowManager.LayoutParams.MATCH_PARENT
-        params.height = WindowManager.LayoutParams.MATCH_PARENT
+        params.height = WindowManager.LayoutParams.WRAP_CONTENT
         dialog!!.window!!.attributes = params as WindowManager.LayoutParams
         dialog!!.window!!.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE)
     }

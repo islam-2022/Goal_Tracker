@@ -47,10 +47,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:text="@string/select_the_goal_related_to_this_evidence"
+            android:text="@string/select_the_habit_related_to_this_evidence"
             android:textAppearance="@android:style/TextAppearance.Holo.Widget.ActionBar.Subtitle"/>
         <Spinner
-            android:id="@+id/evidence_goal_spinner"
+            android:id="@+id/evidence_habit_spinner"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
 
@@ -68,6 +68,7 @@
             />
 
         <Button
+            android:id="@+id/evidence_Photo_button"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"

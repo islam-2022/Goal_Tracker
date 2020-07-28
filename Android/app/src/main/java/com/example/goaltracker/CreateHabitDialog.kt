@@ -19,6 +19,7 @@ class CreateHabitDialog : DialogFragment() {
     private lateinit var habitDescription: EditText
     private lateinit var setTimePeriodErrorMessage: TextView
     private var habitTimePeriodBundle: Bundle =  Bundle.EMPTY
+    private lateinit var mentorMail: EditText
 
     override fun onCreateView(
                                 inflater: LayoutInflater,
@@ -30,6 +31,7 @@ class CreateHabitDialog : DialogFragment() {
         habitName = rootView.findViewById(R.id.habit_name_edit_text)
         habitDescription  = rootView.findViewById(R.id.habit_description_edit_text)
         setTimePeriodErrorMessage = rootView.findViewById(R.id.set_time_period_error_text_view)
+        mentorMail = rootView.findViewById(R.id.mentor_mail_edit_text)
         val goalsSpinner: Spinner = rootView.findViewById(R.id.goals_spinner)
         val prioritySpinner: Spinner = rootView.findViewById(R.id.priority_spinner)
 
@@ -104,6 +106,10 @@ class CreateHabitDialog : DialogFragment() {
             setTimePeriodErrorMessage.visibility = View.VISIBLE
             flag = false
         }
+        if(mentorMail.text.toString().isEmpty() || android.util.Patterns.EMAIL_ADDRESS.matcher(mentorMail.text.toString()).matches()){
+            mentorMail.error = "Enter valid input"
+            flag = false
+        }
         return flag
     }
 
@@ -112,7 +118,7 @@ class CreateHabitDialog : DialogFragment() {
         super.onResume()
         val params: ViewGroup.LayoutParams = dialog!!.window!!.attributes
         params.width = ViewGroup.LayoutParams.MATCH_PARENT
-        params.height = ViewGroup.LayoutParams.MATCH_PARENT
+        params.height = ViewGroup.LayoutParams.WRAP_CONTENT
         dialog!!.window!!.attributes = params as WindowManager.LayoutParams
     }
 
