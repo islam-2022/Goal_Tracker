@@ -43,8 +43,8 @@ class EvidenceAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         val image: ImageView = itemView.evidence_image_view
 
         fun bind(evidence: Evidence){
-            author.setText(evidence.author.name)
-            tagged_user.setText(evidence.taggedPerson.name)
+            author.setText(evidence.author)
+            tagged_user.setText(evidence.taggedPerson)
             context.setText(evidence.context)
             time.setText(evidence.timeStamp)
 
