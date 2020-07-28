@@ -46,7 +46,9 @@ class EvidenceFragment:Fragment(R.layout.fragment_evidence) {
         }
 		//KI CODE
 		val list = ArrayList<Evidence>()
-//		evidenceAdapter.addToList(Evidence("user1","user2","evidence1","5h","",false))
+//		list.add(Evidence("user1","user2","evidence1","5h","",false))
+//		list.add(Evidence("user2","user1","evidence2","6h","",false))
+=======
 
 		getCurrentData(object: Callback<List<Evidence>> {
 			override fun onFailure(call: Call<List<Evidence>>, t: Throwable) {
