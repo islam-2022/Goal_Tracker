@@ -12,7 +12,7 @@ import kotlinx.android.synthetic.main.evidence_item.view.*
 
 class EvidenceAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    private var evidenceList: List<Evidence> = ArrayList()
+    private var evidenceList = ArrayList<Evidence>()
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return EvidenceViewHolder(
             LayoutInflater.from(parent.context).inflate(R.layout.evidence_item,parent,false)
@@ -22,7 +22,7 @@ class EvidenceAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when(holder){
             is EvidenceViewHolder->{
-                holder.bind(evidenceList.get(position))
+                holder.bind(evidenceList[position])
             }
         }
     }
@@ -31,8 +31,12 @@ class EvidenceAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         return evidenceList.size
     }
 
-    fun sumbitList(list: List<Evidence>){
+    fun sumbitList(list: ArrayList<Evidence>){
         evidenceList = list
+    }
+
+    fun addToList(evidence: Evidence){
+        evidenceList.add(evidence)
     }
 
     class EvidenceViewHolder (itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -48,11 +52,11 @@ class EvidenceAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
             context.setText(evidence.context)
             time.setText(evidence.timeStamp)
 
-            Glide
-                .with(context)
-                .load(evidence.image)
-                .centerCrop()
-                .into(image)
+//            Glide
+//                .with(context)
+//                .load(evidence.image)
+//                .centerCrop()
+//                .into(image)
         }
     }
 

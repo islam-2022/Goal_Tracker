@@ -7,14 +7,12 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.goaltracker.Model.Evidence
-import com.example.goaltracker.Model.Goal
-import com.example.goaltracker.Model.User
 import com.example.goaltracker.ViewModel.EvidenceViewModel
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import retrofit2.Call
@@ -23,7 +21,9 @@ import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
+
 // todo add edit and delete features
+
 class EvidenceFragment:Fragment(R.layout.fragment_evidence) {
 
 	val BASE_URL="https://evidenceapinodejs.herokuapp.com/"
@@ -40,31 +40,30 @@ class EvidenceFragment:Fragment(R.layout.fragment_evidence) {
         val evidenceRecycleView : RecyclerView = rootView.findViewById(R.id.evidence_recycle_view)
         evidenceRecycleView.apply {
             layoutManager = LinearLayoutManager(context)
-            evidenceRecycleView.setHasFixedSize(true)
             evidenceAdapter = EvidenceAdapter()
+            setHasFixedSize(true)
             evidenceRecycleView.adapter = evidenceAdapter
         }
 		//KI CODE
 		val list = ArrayList<Evidence>()
-		list.add(Evidence("user1","user2","evidence1","5h","",false))
-//		list.add(Evidence("user2","user1","evidence2","6h","",false))
+//		evidenceAdapter.addToList(Evidence("user1","user2","evidence1","5h","",false))
 
 		getCurrentData(object: Callback<List<Evidence>> {
 			override fun onFailure(call: Call<List<Evidence>>, t: Throwable) {
-				Log.d("+++here","+++onfailure")
+				Log.d("+++here","+++onfailure",t.cause)
 			}
 			override fun onResponse(call: Call<List<Evidence>>, response: Response<List<Evidence>>){
 				val datas=response.body()
 
 				if (datas != null) {
-					for(data in datas){
-//					Log.d("+++here "," ++data is "+datas.toString())
-					list.add(Evidence(data.author,data.taggedPerson,data.context,data.timeStamp,"",false))
+					Log.d("+++here "," ++data is "+datas.toString())
+                    for(data in datas){
+					    list.add(Evidence(data.author,data.taggedPerson,data.context,data.timeStamp,"",false))
 						Log.d("+++here "," ++list is "+list.toString())
-
-						evidenceAdapter.sumbitList(list)
 					}
-				}
+                    evidenceAdapter.sumbitList(list)
+                    evidenceAdapter.notifyDataSetChanged()
+                }
 			}
 		})
 		//KI CODE end
@@ -76,14 +75,14 @@ class EvidenceFragment:Fragment(R.layout.fragment_evidence) {
 //        list.add(Evidence(user1,user2,"evidence1","5h","",false))
 //        list.add(Evidence(user2,user1,"evidence2","6h","",false))
 
-        evidenceViewModel = ViewModelProviders.of(this).get(EvidenceViewModel::class.java)
+//        evidenceViewModel = ViewModelProviders.of(this).get(EvidenceViewModel::class.java)
 //        evidenceViewModel.getAllEvidence().observe(this, object: Observer<List<Evidence>> {
 //            override fun onChanged(evidenceList: List<Evidence>) {
 //                evidenceAdapter.sumbitList(evidenceList)
 //            }
 //        })
 
-        evidenceAdapter.sumbitList(list)
+//        evidenceAdapter.sumbitList(list)
 
         val addEvidenceButton = rootView.findViewById<FloatingActionButton>(R.id.add_evidence_button);
         addEvidenceButton.setOnClickListener{
