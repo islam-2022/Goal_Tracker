@@ -85,12 +85,29 @@
             android:layout_margin="10dp"
             />
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/select_a_mentor_for_the_habit"
+            android:textAppearance="@android:style/TextAppearance.DeviceDefault.Widget.ActionBar.Subtitle"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"/>
+
+        <EditText
+            android:id="@+id/mentor_mail_edit_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Enter the mentor mail"
+            android:layout_margin="10dp"
+            />
+
         <Button
             android:id="@+id/set_habit_time_period_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/set_the_time_period_for_the_habit"
             android:layout_gravity="center"
+            android:layout_marginTop="18dp"
             android:layout_marginStart="18dp"
             android:layout_marginEnd="18dp"/>
         <TextView
@@ -101,7 +118,9 @@
             android:textAppearance="@android:style/TextAppearance.Medium"
             android:textColor="@android:color/holo_red_dark"
             android:gravity="center"
-            android:layout_margin="18dp"
+            android:layout_marginStart="18dp"
+            android:layout_marginEnd="18dp"
+            android:layout_marginBottom="10dp"
             android:visibility="invisible"
             />
 

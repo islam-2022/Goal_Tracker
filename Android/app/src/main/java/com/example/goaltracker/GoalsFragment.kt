@@ -7,16 +7,21 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.goaltracker.Model.Goal
 import com.example.goaltracker.Model.Habit
+import com.example.goaltracker.ViewModel.GoalViewModel
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 
+// todo add edit and delete features
 class GoalsFragment: Fragment(R.layout.fragment_goals) {
 
     private lateinit var goalAdapter: GoalAdapter
+    private lateinit var goalViewModel: GoalViewModel
     private val GREATE_HABIT_DIALOG: Int = 0
 
     override fun onCreateView(inflater: LayoutInflater,
@@ -62,7 +67,15 @@ class GoalsFragment: Fragment(R.layout.fragment_goals) {
         )
 
 
+        goalViewModel = ViewModelProviders.of(this).get(GoalViewModel::class.java)
+//        goalViewModel.getAllGoals()
+//            .observe(this, object: Observer<List<Goal>> {
+//                override fun onChanged(goals: List<Goal>) {
+//                    goalAdapter.sumbitList(goals)
+//                }
+//             })
         goalAdapter.sumbitList(list)
+
 
         val addGoalButton = rootView.findViewById<FloatingActionButton>(R.id.add_goal_button);
         addGoalButton.setOnClickListener{
@@ -79,19 +92,19 @@ class GoalsFragment: Fragment(R.layout.fragment_goals) {
         if (requestCode == GREATE_HABIT_DIALOG){
             if(resultCode == Activity.RESULT_OK){
                 val bundle: Bundle? = data!!.extras
-                var habitTimePeriod = HabitTimePeriod(
+                val habitTimePeriod = HabitTimePeriod(
                     bundle!!.getInt("habitFrequencyNumber"),
-                    bundle!!.getBoolean("isFrequencyPerWeek"),
-                    bundle!!.get("daysSelected") as ArrayList<Days>,
-                    bundle!!.getString("selectedRadioButton"),
-                    bundle!!.getString("habitEndingAt"),
-                    bundle!!.getInt("habitEndingAfter")
+                    bundle.getBoolean("isFrequencyPerWeek"),
+                    bundle.get("daysSelected") as ArrayList<Days>,
+                    bundle.getString("selectedRadioButton"),
+                    bundle.getString("habitEndingAt"),
+                    bundle.getInt("habitEndingAfter")
                 )
                 var habit = Habit(
-                    bundle!!.getString("habitName"),
-                    bundle!!.getString("habitDescription"),
+                    bundle.getString("habitName"),
+                    bundle.getString("habitDescription"),
                     0,
-                    bundle!!.get("priority"),
+                    bundle.get("priority"),
                     habitTimePeriod
                 )
                 // todo view model. goal .add habit.

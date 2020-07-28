@@ -8,7 +8,7 @@ data class Habit(
     var progress: Int,
     var priority: Any?,
     var timeStamp: HabitTimePeriod?
-//    var user: User
+//    var mentor: User
 )
 {
 }

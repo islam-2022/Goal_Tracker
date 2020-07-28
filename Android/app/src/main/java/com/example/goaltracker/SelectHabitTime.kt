@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.view.WindowManager
 import android.widget.*
 import androidx.fragment.app.DialogFragment
+import kotlinx.android.synthetic.main.select_habit_time_dialog.*
 import java.text.ParseException
 import java.text.SimpleDateFormat
 
@@ -31,15 +32,33 @@ class SelectHabitTime: DialogFragment() {
 
     private var selectedHabitTimeFrequency: String = "day"
 
+    private lateinit var rootView: View
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?): View? {
 
-        val rootView: View = inflater.inflate(R.layout.select_habit_time_dialog,container,false)
+        rootView = inflater.inflate(R.layout.select_habit_time_dialog,container,false)
 
-
+        // initializing spinners views
         habitFrequencySpinner = rootView.findViewById(R.id.habit_time_frequency_spinner)
+        // initializing edit texts
+        habitFrequencyEditText = rootView.findViewById(R.id.habit_time_frequency_edit_text)
+        habitEndingAfterEditText = rootView.findViewById(R.id.habit_time_ending_after_edit_text)
+        dateEditText = rootView.findViewById(R.id.date_edit_text)
+        // initializing check boxes
+        sundayCheckBox = rootView.findViewById(R.id.sunday_check_box)
+        mondayCheckBox = rootView.findViewById(R.id.monday_check_box)
+        tuesdayCheckBox = rootView.findViewById(R.id.tuesday_check_box)
+        wednesdayCheckBox  = rootView.findViewById(R.id.wednesday_check_box)
+        thursdayCheckBox = rootView.findViewById(R.id.thursday_check_box)
+        fridayCheckBox = rootView.findViewById(R.id.friday_check_box)
+        saturdayCheckBox = rootView.findViewById(R.id.saturday_check_box)
+        // initializing default selected radio button and the radio group
+        selectedRadioButton = rootView.findViewById(R.id.never_radio_button)
+        habitTimeEndingRadioGroup = rootView.findViewById(R.id.habit_time_ending_radio_group)
+
         // create an arrayAdapter using the string array and a default spinner layout
         ArrayAdapter.createFromResource(
             requireContext(),
@@ -56,38 +75,17 @@ class SelectHabitTime: DialogFragment() {
         habitFrequencySpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parentView: AdapterView<*>?, selectedItemView: View, position: Int, id: Long) {
                 selectedHabitTimeFrequency = parentView!!.getItemAtPosition(position).toString()
-                val daysOfWeekTextLinearLayout: LinearLayout = rootView.findViewById(R.id.days_of_week_text_linear_layout)
-                val daysOfWeekCheckBoxLinearLayout: LinearLayout = rootView.findViewById(R.id.days_of_week_check_box_linear_layout)
-                val repeatOnTextView: TextView = rootView.findViewById(R.id.repeat_on_days_text_view)
-                if(selectedHabitTimeFrequency == "day" || selectedHabitTimeFrequency == "month" || selectedHabitTimeFrequency == "year"){
-                    daysOfWeekTextLinearLayout.visibility = View.GONE
-                    daysOfWeekCheckBoxLinearLayout.visibility = View.GONE
-                    repeatOnTextView.visibility = View.GONE
-                }
-                else if(selectedHabitTimeFrequency.equals("week")){
-                    daysOfWeekTextLinearLayout.visibility = View.VISIBLE
-                    daysOfWeekCheckBoxLinearLayout.visibility = View.VISIBLE
-                    repeatOnTextView.visibility = View.VISIBLE
-                }
+                if(selectedHabitTimeFrequency == "day" || selectedHabitTimeFrequency == "month" || selectedHabitTimeFrequency == "year")
+                    daysVisibility(false)
+                else if(selectedHabitTimeFrequency.equals("week"))
+                    daysVisibility(true)
             }
             override fun onNothingSelected(parentView: AdapterView<*>?) { }
+
         }
 
 
-        habitFrequencyEditText = rootView.findViewById(R.id.habit_time_frequency_edit_text)
-        sundayCheckBox = rootView.findViewById(R.id.sunday_check_box)
-        mondayCheckBox = rootView.findViewById(R.id.monday_check_box)
-        tuesdayCheckBox = rootView.findViewById(R.id.tuesday_check_box)
-        wednesdayCheckBox  = rootView.findViewById(R.id.wednesday_check_box)
-        thursdayCheckBox = rootView.findViewById(R.id.thursday_check_box)
-        fridayCheckBox = rootView.findViewById(R.id.friday_check_box)
-        saturdayCheckBox = rootView.findViewById(R.id.saturday_check_box)
-        selectedRadioButton = rootView.findViewById(R.id.never_radio_button)
-
-        habitEndingAfterEditText = rootView.findViewById(R.id.habit_time_ending_after_edit_text)
-        dateEditText = rootView.findViewById(R.id.date_edit_text)
         // set up habit ending time radio group listener
-        habitTimeEndingRadioGroup = rootView.findViewById(R.id.habit_time_ending_radio_group)
         habitTimeEndingRadioGroup.setOnCheckedChangeListener { group, checkedId ->
             var radioId: Int =  habitTimeEndingRadioGroup.checkedRadioButtonId
             val habitEndingAfterTextView: TextView = rootView.findViewById(R.id.habit_time_ending_after_text_view)
@@ -107,6 +105,9 @@ class SelectHabitTime: DialogFragment() {
                 habitEndingAfterEditText.isEnabled = true
                 habitEndingAfterTextView.isEnabled = true
             }
+
+
+
         }
 
         // set up finish button listener
@@ -115,22 +116,23 @@ class SelectHabitTime: DialogFragment() {
             if(checkValidInputs()){
                 val intent = Intent()
                 intent.putExtra("habitFrequencyNumber",habitFrequencyEditText.text.toString())
-                intent.putExtra("isFrequencyPerWeek",selectedHabitTimeFrequency=="week")
-                if(selectedHabitTimeFrequency == "day") {
+                intent.putExtra("FrequencyPerItemPosition",habitFrequencySpinner.selectedItemPosition)
+                intent.putExtra("isFrequencyPerWeek",selectedHabitTimeFrequency == "week")
+                if(selectedHabitTimeFrequency == "week") {
                     val daysSelected = ArrayList<Days>()
                     if(sundayCheckBox.isChecked)
                         daysSelected.add(Days.Sunday)
                     if(mondayCheckBox.isChecked)
                         daysSelected.add(Days.Monday)
-                    if(wednesdayCheckBox.isChecked)
-                        daysSelected.add(Days.Tuesday)
-                    if(thursdayCheckBox.isChecked)
-                        daysSelected.add(Days.Wednesday)
-                    if(fridayCheckBox.isChecked)
-                        daysSelected.add(Days.Thursday)
-                    if(saturdayCheckBox.isChecked)
-                        daysSelected.add(Days.Friday)
                     if(tuesdayCheckBox.isChecked)
+                        daysSelected.add(Days.Tuesday)
+                    if(wednesdayCheckBox.isChecked)
+                        daysSelected.add(Days.Wednesday)
+                    if(thursdayCheckBox.isChecked)
+                        daysSelected.add(Days.Thursday)
+                    if(fridayCheckBox.isChecked)
+                        daysSelected.add(Days.Friday)
+                    if(saturdayCheckBox.isChecked)
                         daysSelected.add(Days.Saturday)
                     intent.putExtra("daysSelected",daysSelected)
                 }
@@ -144,9 +146,64 @@ class SelectHabitTime: DialogFragment() {
             }
         }
 
+        // load a saved state if exists
+        var bundle: Bundle = arguments!!
+        if (bundle != Bundle.EMPTY){
+            loadData(bundle)
+        }
+
         return rootView
     }
 
+    // change the visibility of the days linear layout.
+    // b true -> visible   --   b false -> gone
+    private fun daysVisibility(b: Boolean) {
+        println(b)
+        val daysOfWeekTextLinearLayout: LinearLayout = rootView.findViewById(R.id.days_of_week_text_linear_layout)
+        val daysOfWeekCheckBoxLinearLayout: LinearLayout = rootView.findViewById(R.id.days_of_week_check_box_linear_layout)
+        val repeatOnTextView: TextView = rootView.findViewById(R.id.repeat_on_days_text_view)
+        if(b){
+            daysOfWeekTextLinearLayout.visibility = View.VISIBLE
+            daysOfWeekCheckBoxLinearLayout.visibility = View.VISIBLE
+            repeatOnTextView.visibility = View.VISIBLE
+        }else{
+            daysOfWeekTextLinearLayout.visibility = View.GONE
+            daysOfWeekCheckBoxLinearLayout.visibility = View.GONE
+            repeatOnTextView.visibility = View.GONE   
+        }
+    }
+
+    // this function load the saved state of the time period dialog.
+    private fun loadData(bundle: Bundle) {
+        habitFrequencyEditText.setText(bundle.getString("habitFrequencyNumber"))
+        habitFrequencySpinner.setSelection(bundle.getInt("FrequencyPerItemPosition"))
+        if(bundle.getBoolean("isFrequencyPerWeek")){
+            daysVisibility(true)
+            val days: ArrayList<Days> = bundle.get("daysSelected") as ArrayList<Days>
+            for(day in days){
+                when(day.toString()) {
+                    Days.Sunday.toString() -> sundayCheckBox.isChecked = true
+                    Days.Monday.toString() -> mondayCheckBox.isChecked = true
+                    Days.Tuesday.toString() -> tuesdayCheckBox.isChecked = true
+                    Days.Wednesday.toString() -> wednesdayCheckBox.isChecked = true
+                    Days.Thursday.toString() -> thursdayCheckBox.isChecked = true
+                    Days.Friday.toString() -> fridayCheckBox.isChecked = true
+                    Days.Saturday.toString() -> saturdayCheckBox.isChecked = true
+                }
+            }
+        }
+        println(bundle.getString("selectedRadioButton").toString())
+        if(bundle.getString("selectedRadioButton").toString() == "On") {
+            rootView.findViewById<RadioButton>(R.id.on_radio_button).isChecked = true
+            dateEditText.setText(bundle.getString("habitEndingAt"))
+        }
+        else if(bundle.getString("selectedRadioButton").toString() == "After") {
+            rootView.findViewById<RadioButton>(R.id.after_radio_button).isChecked = true
+            habitEndingAfterEditText.setText(bundle.getString("habitEndingAfter"))
+        }
+    }
+
+    // validation func
     private fun checkValidInputs(): Boolean {
         var flag = true
         val timeFrequency: String = habitFrequencyEditText.text.toString()
@@ -186,7 +243,7 @@ class SelectHabitTime: DialogFragment() {
         super.onResume()
         val params: ViewGroup.LayoutParams = dialog!!.window!!.attributes
         params.width = WindowManager.LayoutParams.MATCH_PARENT
-        params.height = WindowManager.LayoutParams.MATCH_PARENT
+        params.height = WindowManager.LayoutParams.WRAP_CONTENT
         dialog!!.window!!.attributes = params as WindowManager.LayoutParams
         dialog!!.window!!.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE)
     }
@@ -195,7 +252,7 @@ class SelectHabitTime: DialogFragment() {
     // validate the date provided
     @Throws(ParseException::class)
     fun validDate(dateStr: String) {
-        var formatter = SimpleDateFormat("dd-MM-yyyy")
+        val formatter = SimpleDateFormat("dd-MM-yyyy")
         val date = formatter.parse(dateStr)
         println(date)
     }
