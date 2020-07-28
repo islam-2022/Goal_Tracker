@@ -39,7 +39,7 @@ class EvidenceFragment:Fragment(R.layout.fragment_evidence) {
         }
 		//KI CODE
 		val list = ArrayList<Evidence>()
-		list.add(Evidence("user1","user2","evidence1","5h","",false))
+//		list.add(Evidence("user1","user2","evidence1","5h","",false))
 //		list.add(Evidence("user2","user1","evidence2","6h","",false))
 
 		getCurrentData(object: Callback<List<Evidence>> {
@@ -56,6 +56,7 @@ class EvidenceFragment:Fragment(R.layout.fragment_evidence) {
 						Log.d("+++here "," ++list is "+list.toString())
 
 						evidenceAdapter.sumbitList(list)
+						evidenceAdapter.notifyDataSetChanged()
 					}
 				}
 			}
@@ -69,7 +70,8 @@ class EvidenceFragment:Fragment(R.layout.fragment_evidence) {
 //        list.add(Evidence(user1,user2,"evidence1","5h","",false))
 //        list.add(Evidence(user2,user1,"evidence2","6h","",false))
 
-        evidenceAdapter.sumbitList(list)
+//        evidenceAdapter.sumbitList(list)
+//		evidenceAdapter.notifyDataSetChanged()
 
         val addEvidenceButton = rootView.findViewById<FloatingActionButton>(R.id.add_evidence_button);
         addEvidenceButton.setOnClickListener{
