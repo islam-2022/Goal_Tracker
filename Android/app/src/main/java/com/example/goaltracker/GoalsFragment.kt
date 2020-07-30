@@ -11,6 +11,8 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.goaltracker.Extension.getHabit
+import com.example.goaltracker.Extension.getHabitTimePeriod
 import com.example.goaltracker.Model.Goal
 import com.example.goaltracker.Model.Habit
 import com.example.goaltracker.Service.GoalService
@@ -69,21 +71,8 @@ class GoalsFragment: Fragment(R.layout.fragment_goals) {
         if (requestCode == GREATE_HABIT_DIALOG){
             if(resultCode == Activity.RESULT_OK){
                 val bundle: Bundle? = data!!.extras
-                val habitTimePeriod = HabitTimePeriod(
-                    bundle!!.getInt("habitFrequencyNumber"),
-                    bundle.getBoolean("isFrequencyPerWeek"),
-                    bundle.get("daysSelected") as ArrayList<Days>,
-                    bundle.getString("selectedRadioButton"),
-                    bundle.getString("habitEndingAt"),
-                    bundle.getInt("habitEndingAfter")
-                )
-                var habit = Habit(
-                    bundle.getString("habitName"),
-                    bundle.getString("habitDescription"),
-                    0,
-                    bundle.get("priority"),
-                    habitTimePeriod
-                )
+                val habitTimePeriod = bundle?.getHabitTimePeriod()
+                var habit = bundle?.getHabit(habitTimePeriod)
                 // todo view model. goal .add habit.
 
             }
