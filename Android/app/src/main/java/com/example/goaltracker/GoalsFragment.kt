@@ -11,8 +11,11 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.goaltracker.Extension.getHabit
+import com.example.goaltracker.Extension.getHabitTimePeriod
 import com.example.goaltracker.Model.Goal
 import com.example.goaltracker.Model.Habit
+import com.example.goaltracker.Service.GoalService
 import com.example.goaltracker.ViewModel.GoalViewModel
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
@@ -40,31 +43,7 @@ class GoalsFragment: Fragment(R.layout.fragment_goals) {
 
 
         // create fake data.
-        val habit1 = Habit("got to Gym","",8,Priority.NORMAL,null)
-        val habit2 = Habit("Eat Healthy","",7,Priority.HIGH,null)
-        val habits1 = ArrayList<Habit>()
-        habits1.add(habit1)
-        habits1.add(habit2)
-        val habit3 = Habit("Track expenses","",15,Priority.LOW,null)
-        val habits2 = ArrayList<Habit>()
-        habits2.add(habit3)
-        val list = ArrayList<Goal>()
-        list.add(
-            Goal(
-                "Health",
-                10,
-                habits1,
-                ""
-            )
-        )
-        list.add(
-            Goal(
-                "Finance",
-                15,
-                habits2,
-                ""
-            )
-        )
+        val goalData = GoalService().getMockGoalData()
 
 
         goalViewModel = ViewModelProviders.of(this).get(GoalViewModel::class.java)
@@ -74,7 +53,7 @@ class GoalsFragment: Fragment(R.layout.fragment_goals) {
 //                    goalAdapter.sumbitList(goals)
 //                }
 //             })
-        goalAdapter.sumbitList(list)
+        goalAdapter.sumbitList(goalData)
 
 
         val addGoalButton = rootView.findViewById<FloatingActionButton>(R.id.add_goal_button);
@@ -92,21 +71,8 @@ class GoalsFragment: Fragment(R.layout.fragment_goals) {
         if (requestCode == GREATE_HABIT_DIALOG){
             if(resultCode == Activity.RESULT_OK){
                 val bundle: Bundle? = data!!.extras
-                val habitTimePeriod = HabitTimePeriod(
-                    bundle!!.getInt("habitFrequencyNumber"),
-                    bundle.getBoolean("isFrequencyPerWeek"),
-                    bundle.get("daysSelected") as ArrayList<Days>,
-                    bundle.getString("selectedRadioButton"),
-                    bundle.getString("habitEndingAt"),
-                    bundle.getInt("habitEndingAfter")
-                )
-                var habit = Habit(
-                    bundle.getString("habitName"),
-                    bundle.getString("habitDescription"),
-                    0,
-                    bundle.get("priority"),
-                    habitTimePeriod
-                )
+                val habitTimePeriod = bundle?.getHabitTimePeriod()
+                var habit = bundle?.getHabit(habitTimePeriod)
                 // todo view model. goal .add habit.
 
             }
