@@ -1,10 +1,11 @@
 package com.example.goaltracker
 
-import androidx.appcompat.app.AppCompatActivity
+import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
 import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -65,6 +66,11 @@ class MainActivity : AppCompatActivity() {
 			return true
 		}
 		return super.onOptionsItemSelected(item)
+	}
+	fun toLogin()
+	{
+		val intent= Intent(this, LoginActivity::class.java)
+		startActivity(intent)
 	}
 
 }

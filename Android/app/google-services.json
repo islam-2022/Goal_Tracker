@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "51721388223",
+    "firebase_url": "https://accountabilitybuddy-2af99.firebaseio.com",
+    "project_id": "accountabilitybuddy-2af99",
+    "storage_bucket": "accountabilitybuddy-2af99.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:51721388223:android:5fdbbd4ad53631d80f460a",
+        "android_client_info": {
+          "package_name": "com.example.goaltracker"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "51721388223-ih7cg750e8vbdrk033sc0rbu1qouv43p.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.goaltracker",
+            "certificate_hash": "10f204bbad70e2726711c625f8b65c580c24fee2"
+          }
+        },
+        {
+          "client_id": "51721388223-2sshvi05ts17o0l1jpquud5sll24t7a5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDlWQBDws4vyii9eQKRoFcLuYenm_FrgLo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "51721388223-2sshvi05ts17o0l1jpquud5sll24t7a5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
