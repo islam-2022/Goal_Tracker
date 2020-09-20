@@ -31,6 +31,9 @@ class HabitAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     fun sumbitList(list: List<Habit>){
         habitList = list as ArrayList<Habit>
     }
+//    fun insertHabit(habit: Habit){
+//        habitList.add(habit)
+//    }
 
 
     class HabitViewHolder (itemView: View): RecyclerView.ViewHolder(itemView){

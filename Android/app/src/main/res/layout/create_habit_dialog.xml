@@ -47,6 +47,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
+            android:maxLines="1"
             android:hint="@string/habit_s_name"/>
 
         <EditText
@@ -97,6 +98,8 @@
             android:id="@+id/mentor_mail_edit_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:inputType="textEmailAddress"
+            android:maxLines="1"
             android:hint="Enter the mentor mail"
             android:layout_margin="10dp"
             />

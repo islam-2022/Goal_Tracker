@@ -11,6 +11,8 @@ import android.view.WindowManager
 import android.widget.*
 import androidx.fragment.app.DialogFragment
 import com.bumptech.glide.Glide
+import com.example.goaltracker.Model.Habit
+
 class CreateEvidenceDialog: DialogFragment() {
 
     private lateinit var evidenceContext: EditText
@@ -40,6 +42,7 @@ class CreateEvidenceDialog: DialogFragment() {
             }
         }
 
+
         val cancelEvidenceButton: Button = rootView.findViewById(R.id.cancel_create_evidence_button)
         cancelEvidenceButton.setOnClickListener{
             dismiss()
@@ -59,17 +62,10 @@ class CreateEvidenceDialog: DialogFragment() {
 
 
 
-//        // create an arrayAdapter using the string array and a default spinner layout
-//        ArrayAdapter.createFromResource(
-//            requireContext(),
-//            R.array.,
-//            android.R.layout.simple_spinner_item
-//        ).also { adapter ->
-//            // specify the layout to use when the list of choices appears
-//            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-//            // apply the adapter to the the spinner
-//            evidenceGoalSpinner.adapter = adapter
-//        }
+        val habitList: ArrayList<String> = arguments!!.getStringArrayList("habitList")!!
+        val habitListSpinnerAdapter = ArrayAdapter<String>(targetFragment!!.context!!,android.R.layout.simple_spinner_item,habitList)
+        habitListSpinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        evidenceHabitSpinner.adapter = habitListSpinnerAdapter
 
         return rootView
     }

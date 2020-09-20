@@ -9,14 +9,13 @@ import android.view.ViewGroup
 import android.view.WindowManager
 import android.widget.*
 import androidx.fragment.app.DialogFragment
-import kotlinx.android.synthetic.main.select_habit_time_dialog.*
 import java.text.ParseException
 import java.text.SimpleDateFormat
 
 
 class SelectHabitTime: DialogFragment() {
 
-    private lateinit var habitFrequencyEditText:EditText
+    private lateinit var habitFrequencyRepeatEverySpinner: Spinner
     private lateinit var habitFrequencySpinner: Spinner
     private lateinit var sundayCheckBox: CheckBox
     private lateinit var mondayCheckBox: CheckBox
@@ -27,7 +26,7 @@ class SelectHabitTime: DialogFragment() {
     private lateinit var saturdayCheckBox: CheckBox
     private lateinit var habitTimeEndingRadioGroup: RadioGroup
     private lateinit var selectedRadioButton: RadioButton
-    private lateinit var habitEndingAfterEditText: EditText
+    private lateinit var habitEndingAfterSpinner: Spinner
     private lateinit var dateEditText: EditText
 
     private var selectedHabitTimeFrequency: String = "day"
@@ -43,9 +42,9 @@ class SelectHabitTime: DialogFragment() {
 
         // initializing spinners views
         habitFrequencySpinner = rootView.findViewById(R.id.habit_time_frequency_spinner)
-        // initializing edit texts
-        habitFrequencyEditText = rootView.findViewById(R.id.habit_time_frequency_edit_text)
-        habitEndingAfterEditText = rootView.findViewById(R.id.habit_time_ending_after_edit_text)
+        habitFrequencyRepeatEverySpinner = rootView.findViewById(R.id.habit_time_frequency_repeat_every_spinner)
+        habitEndingAfterSpinner = rootView.findViewById(R.id.habit_time_ending_after_spinner)
+        habitEndingAfterSpinner.isEnabled = false
         dateEditText = rootView.findViewById(R.id.date_edit_text)
         // initializing check boxes
         sundayCheckBox = rootView.findViewById(R.id.sunday_check_box)
@@ -84,6 +83,18 @@ class SelectHabitTime: DialogFragment() {
 
         }
 
+        val numbersArray = ArrayList<Int>()
+        for (i in 1..100) {
+            numbersArray.add(i)
+        }
+        val habitFrequencyRepeatSpinnerAdapter = ArrayAdapter<Int>(context!!,android.R.layout.simple_spinner_item,numbersArray)
+        habitFrequencyRepeatSpinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        habitFrequencyRepeatEverySpinner.adapter = habitFrequencyRepeatSpinnerAdapter
+
+        val habitEndingAfterSpinnerAdapter = ArrayAdapter<Int>(context!!,android.R.layout.simple_spinner_item,numbersArray)
+        habitEndingAfterSpinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        habitEndingAfterSpinner.adapter = habitEndingAfterSpinnerAdapter
+
 
         // set up habit ending time radio group listener
         habitTimeEndingRadioGroup.setOnCheckedChangeListener { group, checkedId ->
@@ -92,17 +103,17 @@ class SelectHabitTime: DialogFragment() {
             selectedRadioButton = rootView.findViewById(radioId)
             if(selectedRadioButton.text == "Never"){
                 dateEditText.isEnabled = false
-                habitEndingAfterEditText.isEnabled = false
+                habitEndingAfterSpinner.isEnabled = false
                 habitEndingAfterTextView.isEnabled = false
             }
             else if (selectedRadioButton.text == "On") {
                 dateEditText.isEnabled = true
-                habitEndingAfterEditText.isEnabled = false
+                habitEndingAfterSpinner.isEnabled = false
                 habitEndingAfterTextView.isEnabled = false
             }
             else if(selectedRadioButton.text == "After"){
                 dateEditText.isEnabled = false
-                habitEndingAfterEditText.isEnabled = true
+                habitEndingAfterSpinner.isEnabled = true
                 habitEndingAfterTextView.isEnabled = true
             }
 
@@ -115,32 +126,34 @@ class SelectHabitTime: DialogFragment() {
         finishButton.setOnClickListener{
             if(checkValidInputs()){
                 val intent = Intent()
-                intent.putExtra("habitFrequencyNumber",habitFrequencyEditText.text.toString())
+                println(habitEndingAfterSpinner.selectedItem.toString().toInt())
+                intent.putExtra("habitFrequencyNumber",habitFrequencyRepeatEverySpinner.selectedItem.toString().toInt())
                 intent.putExtra("FrequencyPerItemPosition",habitFrequencySpinner.selectedItemPosition)
                 intent.putExtra("isFrequencyPerWeek",selectedHabitTimeFrequency == "week")
                 if(selectedHabitTimeFrequency == "week") {
-                    val daysSelected = ArrayList<Days>()
+                    var daysSelected = String()
                     if(sundayCheckBox.isChecked)
-                        daysSelected.add(Days.Sunday)
+                        daysSelected.plus(Days.Sunday.toString()+",")
                     if(mondayCheckBox.isChecked)
-                        daysSelected.add(Days.Monday)
+                        daysSelected.plus(Days.Monday.toString()+",")
                     if(tuesdayCheckBox.isChecked)
-                        daysSelected.add(Days.Tuesday)
+                        daysSelected.plus(Days.Tuesday.toString()+",")
                     if(wednesdayCheckBox.isChecked)
-                        daysSelected.add(Days.Wednesday)
+                        daysSelected.plus(Days.Wednesday.toString()+",")
                     if(thursdayCheckBox.isChecked)
-                        daysSelected.add(Days.Thursday)
+                        daysSelected.plus(Days.Thursday.toString()+",")
                     if(fridayCheckBox.isChecked)
-                        daysSelected.add(Days.Friday)
+                        daysSelected.plus(Days.Friday.toString()+",")
                     if(saturdayCheckBox.isChecked)
-                        daysSelected.add(Days.Saturday)
+                        daysSelected.plus(Days.Saturday.toString()+",")
+                    daysSelected.dropLast(1)
                     intent.putExtra("daysSelected",daysSelected)
                 }
                 intent.putExtra("selectedRadioButton",selectedRadioButton.text.toString())
                 if(selectedRadioButton.text.toString() == "On")
                     intent.putExtra("habitEndingAt",dateEditText.text.toString())
                 else if(selectedRadioButton.text.toString() == "After")
-                    intent.putExtra("habitEndingAfter",habitEndingAfterEditText.text.toString())
+                    intent.putExtra("habitEndingAfter",habitEndingAfterSpinner.selectedItem.toString())
                 targetFragment!!.onActivityResult(targetRequestCode, Activity.RESULT_OK,intent)
                 dismiss()
             }
@@ -175,13 +188,13 @@ class SelectHabitTime: DialogFragment() {
 
     // this function load the saved state of the time period dialog.
     private fun loadData(bundle: Bundle) {
-        habitFrequencyEditText.setText(bundle.getString("habitFrequencyNumber"))
+        habitFrequencyRepeatEverySpinner.setSelection(bundle.getInt("habitFrequencyNumber")-1)
         habitFrequencySpinner.setSelection(bundle.getInt("FrequencyPerItemPosition"))
         if(bundle.getBoolean("isFrequencyPerWeek")){
             daysVisibility(true)
-            val days: ArrayList<Days> = bundle.get("daysSelected") as ArrayList<Days>
+            val days : Array<String> = bundle.getString("daysSelected")!!.split(",").toTypedArray()
             for(day in days){
-                when(day.toString()) {
+                when(day) {
                     Days.Sunday.toString() -> sundayCheckBox.isChecked = true
                     Days.Monday.toString() -> mondayCheckBox.isChecked = true
                     Days.Tuesday.toString() -> tuesdayCheckBox.isChecked = true
@@ -199,18 +212,13 @@ class SelectHabitTime: DialogFragment() {
         }
         else if(bundle.getString("selectedRadioButton").toString() == "After") {
             rootView.findViewById<RadioButton>(R.id.after_radio_button).isChecked = true
-            habitEndingAfterEditText.setText(bundle.getString("habitEndingAfter"))
+            habitEndingAfterSpinner.setSelection(bundle.getString("habitEndingAfter")!!.toInt()-1)
         }
     }
 
     // validation func
     private fun checkValidInputs(): Boolean {
         var flag = true
-        val timeFrequency: String = habitFrequencyEditText.text.toString()
-        if(timeFrequency.isEmpty()){
-            habitFrequencyEditText.error = "Enter valid input"
-            flag = false
-        }
         val timePeriod: String = habitFrequencySpinner.selectedItem.toString()
         if(timePeriod == "week"){
             if(!sundayCheckBox.isChecked&&!mondayCheckBox.isChecked&&!tuesdayCheckBox.isChecked&&!wednesdayCheckBox.isChecked&&
@@ -225,12 +233,6 @@ class SelectHabitTime: DialogFragment() {
             }
             catch (e: ParseException){
                 dateEditText.error = "Enter valid date"
-                flag = false
-            }
-        }
-        else if(selectedRadioButton.text == "After"){
-            if(habitEndingAfterEditText.text.toString().isEmpty()){
-                habitEndingAfterEditText.error = "Enter valid input"
                 flag = false
             }
         }

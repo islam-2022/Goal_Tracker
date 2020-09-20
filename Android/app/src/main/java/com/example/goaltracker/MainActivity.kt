@@ -7,12 +7,13 @@ import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
 	lateinit var toggle: ActionBarDrawerToggle
-
+	private var mAuth: FirebaseAuth? = null
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
 		setContentView(R.layout.activity_main)
@@ -23,6 +24,7 @@ class MainActivity : AppCompatActivity() {
 
 		setCurrentFragment(goalsFragment)
 
+		mAuth= FirebaseAuth.getInstance()
 		bottomNavigationView.setOnNavigationItemSelectedListener {
 			when(it.itemId){
 				R.id.goals->setCurrentFragment(goalsFragment)
@@ -46,8 +48,11 @@ class MainActivity : AppCompatActivity() {
 				R.id.mItem2 -> Toast.makeText(applicationContext,"item2 clicked",
 					Toast.LENGTH_SHORT).show()
 
-				R.id.mItem3 -> Toast.makeText(applicationContext,"item3 clicked",
-					Toast.LENGTH_SHORT).show()
+				R.id.mItem3 -> {
+					mAuth!!.signOut()
+						(this.activity as MainActivity?)?.toLogin()
+					this.toLogin()
+				}
 			}
 			true
 		}

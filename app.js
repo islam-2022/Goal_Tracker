@@ -7,6 +7,10 @@ app.get('/',function(req,res){
 	res.send('Hello World!');
 });
 
+app.get('/user',function(req,res){
+	res.send(req+" "+res);
+});
+
 app.get('/test',function(req,res){
 	res.send('you are in testing page!');
 });

@@ -41,8 +41,10 @@ class CreateHabitDialog : DialogFragment() {
                 val intent = Intent()
                 intent.putExtra("habitName",habitName.text.toString())
                 intent.putExtra("habitDescription",habitDescription.text.toString())
-                intent.putExtra("priority",prioritySpinner.selectedItem.toString() as Priority)
-                intent.putExtras(habitTimePeriodBundle!!)
+                intent.putExtra("goalOfTheHabit",goalsSpinner.selectedItem.toString())
+                intent.putExtra("priority",prioritySpinner.selectedItem.toString())
+                intent.putExtra("mentorMail",mentorMail.text.toString())
+                intent.putExtras(habitTimePeriodBundle)
                 targetFragment!!.onActivityResult(targetRequestCode, Activity.RESULT_OK,intent)
                 dismiss()
             }
@@ -86,7 +88,7 @@ class CreateHabitDialog : DialogFragment() {
             val dialog = SelectHabitTime()
             dialog.arguments = this.habitTimePeriodBundle
             dialog.setTargetFragment(this, SET_HABIT_TIME_PERIOD_DIALOG);
-            dialog.show(requireFragmentManager(),"select time period")
+            dialog.show(parentFragmentManager,"select time period")
         }
 
         return rootView
@@ -98,15 +100,15 @@ class CreateHabitDialog : DialogFragment() {
             habitName.error = "Enter valid input"
             flag = false
         }
-        if (habitDescription.text.toString().isEmpty()) {
-            habitDescription.error = "Enter valid input"
-            flag = false
-        }
+//        if (habitDescription.text.toString().isEmpty()) {
+//            habitDescription.error = "Enter valid input"
+//            flag = false
+//        }
         if (!SET_TIME_PERIOD_FLAG) {
             setTimePeriodErrorMessage.visibility = View.VISIBLE
             flag = false
         }
-        if(mentorMail.text.toString().isEmpty() || android.util.Patterns.EMAIL_ADDRESS.matcher(mentorMail.text.toString()).matches()){
+        if(mentorMail.text.toString().isEmpty() || !android.util.Patterns.EMAIL_ADDRESS.matcher(mentorMail.text.toString()).matches()){
             mentorMail.error = "Enter valid input"
             flag = false
         }

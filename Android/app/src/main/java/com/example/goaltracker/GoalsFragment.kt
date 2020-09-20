@@ -8,60 +8,75 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.goaltracker.Extension.getHabit
 import com.example.goaltracker.Extension.getHabitTimePeriod
 import com.example.goaltracker.Model.Goal
 import com.example.goaltracker.Model.Habit
-import com.example.goaltracker.Service.GoalService
+import com.example.goaltracker.Model.HabitTimePeriod
 import com.example.goaltracker.ViewModel.GoalViewModel
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import kotlinx.coroutines.CoroutineScope
 
 
-// todo add edit and delete features
 class GoalsFragment: Fragment(R.layout.fragment_goals) {
 
     private lateinit var goalAdapter: GoalAdapter
+    private lateinit var habitAdapter: HabitAdapter
     private lateinit var goalViewModel: GoalViewModel
     private val GREATE_HABIT_DIALOG: Int = 0
+
 
     override fun onCreateView(inflater: LayoutInflater,
                                 container: ViewGroup?,
                                 savedInstanceState: Bundle?): View? {
 
-        val rootView:View = inflater!!.inflate(R.layout.fragment_goals,container,false)
+        val rootView:View = inflater.inflate(R.layout.fragment_goals,container,false)
 
         val goalsRecycleView : RecyclerView = rootView.findViewById(R.id.goals_recycle_view)
         goalsRecycleView.apply {
             layoutManager = LinearLayoutManager(context)
             setHasFixedSize(true)
-            goalAdapter = GoalAdapter()
+            goalAdapter = GoalAdapter(requireActivity())
             adapter = goalAdapter
         }
 
 
-        // create fake data.
-        val goalData = GoalService().getMockGoalData()
 
 
-        goalViewModel = ViewModelProviders.of(this).get(GoalViewModel::class.java)
+
+        goalViewModel = ViewModelProvider(requireActivity()).get(GoalViewModel::class.java)
+        goalViewModel.getAllGoals()
+            .observe(viewLifecycleOwner, object : Observer<List<Goal>> {
+                override fun onChanged(goals: List<Goal>) {
+                    goalAdapter.sumbitList(goals)
+                    goalAdapter.notifyDataSetChanged()
+                }
+             })
+
+
+
+//        val goalData = GoalService().getMockGoalData()
+
+//        goalViewModel = ViewModelProvider(this).get(GoalViewModel::class.java)
 //        goalViewModel.getAllGoals()
 //            .observe(this, object: Observer<List<Goal>> {
 //                override fun onChanged(goals: List<Goal>) {
 //                    goalAdapter.sumbitList(goals)
 //                }
 //             })
-        goalAdapter.sumbitList(goalData)
+//        goalAdapter.sumbitList(goalData)
 
 
         val addGoalButton = rootView.findViewById<FloatingActionButton>(R.id.add_goal_button);
         addGoalButton.setOnClickListener{
             val dialog = CreateHabitDialog()
             dialog.setTargetFragment(this, GREATE_HABIT_DIALOG);
-            dialog.show(requireFragmentManager(),"createGoal")
+            dialog.show(parentFragmentManager,"createGoal")
         }
+
 
 
         return rootView
@@ -71,9 +86,37 @@ class GoalsFragment: Fragment(R.layout.fragment_goals) {
         if (requestCode == GREATE_HABIT_DIALOG){
             if(resultCode == Activity.RESULT_OK){
                 val bundle: Bundle? = data!!.extras
-                val habitTimePeriod = bundle?.getHabitTimePeriod()
-                var habit = bundle?.getHabit(habitTimePeriod)
-                // todo view model. goal .add habit.
+
+
+                val habitTimePeriod = HabitTimePeriod(
+                    bundle!!.getInt("habitFrequencyNumber"),
+                    bundle.getBoolean("isFrequencyPerWeek"),
+                    bundle.getString("daysSelected"),
+                    bundle.getString("selectedRadioButton"),
+                    bundle.getString("habitEndingAt"),
+                    bundle.getInt("habitEndingAfter")
+                )
+
+                val goalOfTheHabit = bundle.getString("goalOfTheHabit")
+                var goalId = 0
+                goalViewModel.goals.forEachIndexed { index, item ->
+                    if (item.toString() == goalOfTheHabit) {
+                        goalId= index
+                    }
+                }
+
+                var habit =  Habit(
+                    bundle.getString("habitName"),
+                    bundle.getString("habitDescription"),
+                    0,
+                    bundle.getString("priority"),
+                    goalId,
+                    0,
+                    habitTimePeriod
+                )
+
+                goalViewModel.insert(habit, goalOfTheHabit!!)
+
 
             }
         }
